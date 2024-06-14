@@ -45,7 +45,12 @@ class GameFragment : Fragment() {
                     true,
                     0,
                     0,
-                    GameSettings(0, 0, 0, 0)
+                    GameSettings(
+                        0,
+                        0,
+                        0,
+                        0
+                    )
                 )
             )
         }
