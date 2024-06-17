@@ -65,7 +65,7 @@ class GameFinishedFragment : Fragment() {
         binding.tvScorePercentage.text = requireActivity().getString(
             R.string.score_percentage,
             percent.toString())
-        if (percent >= gameResult.gameSettings.minPercentOfRightAnswers) {
+        if (gameResult.winner) {
             binding.emojiResult.setImageResource(R.drawable.ic_smile)
         } else {
             binding.emojiResult.setImageResource(R.drawable.ic_sad)
