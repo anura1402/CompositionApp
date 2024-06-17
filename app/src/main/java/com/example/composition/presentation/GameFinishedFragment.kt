@@ -34,6 +34,7 @@ class GameFinishedFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setResources()
         requireActivity().onBackPressedDispatcher.addCallback(
             viewLifecycleOwner,
             object : OnBackPressedCallback(true) {
@@ -43,6 +44,31 @@ class GameFinishedFragment : Fragment() {
             })
         binding.buttonRetry.setOnClickListener {
             retryGame()
+        }
+    }
+
+    private fun setResources() {
+        val percent =
+            (gameResult.countOfRightAnswers / gameResult.countOfQuestions.toDouble() * 100).toInt()
+        binding.tvRequiredAnswers.text = requireActivity().getString(
+            R.string.required_score,
+            gameResult.gameSettings.minCountOfRightAnswers.toString()
+        )
+        binding.tvScoreAnswers.text = requireActivity().getString(
+            R.string.score_answers,
+            gameResult.countOfRightAnswers.toString()
+        )
+        binding.tvRequiredPercentage.text = requireActivity().getString(
+            R.string.required_percentage,
+            gameResult.gameSettings.minPercentOfRightAnswers.toString()
+        )
+        binding.tvScorePercentage.text = requireActivity().getString(
+            R.string.score_percentage,
+            percent.toString())
+        if (percent >= gameResult.gameSettings.minPercentOfRightAnswers) {
+            binding.emojiResult.setImageResource(R.drawable.ic_smile)
+        } else {
+            binding.emojiResult.setImageResource(R.drawable.ic_sad)
         }
     }
 
@@ -61,7 +87,7 @@ class GameFinishedFragment : Fragment() {
 
     private fun parseArgs() {
         requireArguments().getParcelable<GameResult>(KEY_RESULT)?.let {
-            gameResult =it
+            gameResult = it
         }
     }
 
