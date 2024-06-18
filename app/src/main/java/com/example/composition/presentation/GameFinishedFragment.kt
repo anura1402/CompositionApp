@@ -44,6 +44,7 @@ class GameFinishedFragment : Fragment() {
     }
 
     private fun setResources() {
+        binding.gameResult = args.gameResult
         val percent =
             (args.gameResult.countOfRightAnswers / args.gameResult.countOfQuestions.toDouble() * 100).toInt()
         binding.tvRequiredAnswers.text = requireActivity().getString(
