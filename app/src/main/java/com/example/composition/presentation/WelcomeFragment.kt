@@ -32,9 +32,6 @@ class WelcomeFragment : Fragment() {
         }
     }
     private fun launchChooseLevelFragment(){
-//        requireActivity().supportFragmentManager.beginTransaction()
-//            .replace(R.id.main_container,ChooseLevelFragment.newInstance())
-//            .addToBackStack(ChooseLevelFragment.NAME).commit()
         findNavController().navigate(R.id.action_welcomeFragment_to_chooseLevelFragment)
     }
     override fun onDestroyView() {

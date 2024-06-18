@@ -43,21 +43,8 @@ class ChooseLevelFragment : Fragment() {
     }
 
     private fun launchGameFragment(level: Level) {
-//        requireActivity().supportFragmentManager.beginTransaction()
-//            .replace(R.id.main_container, GameFragment.newInstance(level))
-//            .addToBackStack(GameFragment.NAME)
-//            .commit()
-        val args = Bundle().apply {
-            putParcelable(GameFragment.KEY_LEVEL, level)
-        }
-        findNavController().navigate(R.id.action_chooseLevelFragment_to_gameFragment,args)
+        findNavController().navigate(ChooseLevelFragmentDirections.actionChooseLevelFragmentToGameFragment(level))
     }
 
-    companion object {
 
-         const val NAME = "ChooseLevelFragment"
-        fun newInstance(): ChooseLevelFragment {
-            return ChooseLevelFragment()
-        }
-    }
 }
