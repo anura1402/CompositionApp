@@ -33,40 +33,13 @@ class GameFinishedFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setResources()
+        binding.gameResult = args.gameResult
         setupClickListeners()
     }
 
     private fun setupClickListeners() {
         binding.buttonRetry.setOnClickListener {
             retryGame()
-        }
-    }
-
-    private fun setResources() {
-        binding.gameResult = args.gameResult
-        val percent =
-            (args.gameResult.countOfRightAnswers / args.gameResult.countOfQuestions.toDouble() * 100).toInt()
-        binding.tvRequiredAnswers.text = requireActivity().getString(
-            R.string.required_score,
-            args.gameResult.gameSettings.minCountOfRightAnswers.toString()
-        )
-        binding.tvScoreAnswers.text = requireActivity().getString(
-            R.string.score_answers,
-            args.gameResult.countOfRightAnswers.toString()
-        )
-        binding.tvRequiredPercentage.text = requireActivity().getString(
-            R.string.required_percentage,
-            args.gameResult.gameSettings.minPercentOfRightAnswers.toString()
-        )
-        binding.tvScorePercentage.text = requireActivity().getString(
-            R.string.score_percentage,
-            percent.toString()
-        )
-        if (args.gameResult.winner) {
-            binding.emojiResult.setImageResource(R.drawable.ic_smile)
-        } else {
-            binding.emojiResult.setImageResource(R.drawable.ic_sad)
         }
     }
 
