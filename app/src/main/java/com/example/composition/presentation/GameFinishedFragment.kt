@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager.POP_BACK_STACK_INCLUSIVE
+import androidx.navigation.fragment.findNavController
 import com.example.composition.R
 import com.example.composition.databinding.FragmentGameFinishedBinding
 import com.example.composition.domain.entity.GameResult
@@ -35,13 +36,17 @@ class GameFinishedFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setResources()
-        requireActivity().onBackPressedDispatcher.addCallback(
-            viewLifecycleOwner,
-            object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    retryGame()
-                }
-            })
+        setupClickListeners()
+    }
+
+    private fun setupClickListeners() {
+//        requireActivity().onBackPressedDispatcher.addCallback(
+//            viewLifecycleOwner,
+//            object : OnBackPressedCallback(true) {
+//                override fun handleOnBackPressed() {
+//                    retryGame()
+//                }
+//            })
         binding.buttonRetry.setOnClickListener {
             retryGame()
         }
@@ -64,7 +69,8 @@ class GameFinishedFragment : Fragment() {
         )
         binding.tvScorePercentage.text = requireActivity().getString(
             R.string.score_percentage,
-            percent.toString())
+            percent.toString()
+        )
         if (gameResult.winner) {
             binding.emojiResult.setImageResource(R.drawable.ic_smile)
         } else {
@@ -78,11 +84,11 @@ class GameFinishedFragment : Fragment() {
     }
 
     private fun retryGame() {
-        requireActivity().supportFragmentManager.popBackStack(
-            GameFragment.NAME,
-            POP_BACK_STACK_INCLUSIVE
-        )
-
+//        requireActivity().supportFragmentManager.popBackStack(
+//            GameFragment.NAME,
+//            POP_BACK_STACK_INCLUSIVE
+//        )
+        findNavController().popBackStack()
     }
 
     private fun parseArgs() {
@@ -92,7 +98,7 @@ class GameFinishedFragment : Fragment() {
     }
 
     companion object {
-        private const val KEY_RESULT = "result"
+        const val KEY_RESULT = "result"
         fun newInstance(gameResult: GameResult): GameFinishedFragment {
             return GameFinishedFragment().apply {
                 arguments = Bundle().apply {
